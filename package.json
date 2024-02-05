@@ -39,14 +39,14 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/UKHomeOffice/ima.git"
+    "url": "https://github.com/UKHomeOfficeForms/hof-skeleton.git"
   },
   "author": "Temitope Ayoku & SAS HOF Team",
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/UKHomeOffice/ima/issues"
+    "url": "https://github.com/UKHomeOfficeForms/hof-skeleton/issues"
   },
-  "homepage": "https://github.com/UKHomeOffice/ima#readme",
+  "homepage": "https://github.com/UKHomeOfficeForms/hof-skeleton#readme",
   "mocha": {
     "reporter": "spec",
     "require": "test/common.js",
