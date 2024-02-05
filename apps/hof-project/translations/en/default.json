@@ -1,0 +1,38 @@
+{
+  "buttons": {
+    "start-home": "Start Now"
+  },
+  "journey": {
+    "header": "New HOF Service Form",
+    "phase": "beta"
+  },
+  "pages": {
+    "start": {
+      "header": "HOF Project Form Template"
+    },
+    "welcome": {
+      "header": "Welcome to Hof Project",
+      "paragraph": "This completes your secure access to this service."
+    },
+    "confirm": {
+      "header": "Check your answers"
+    }
+  },
+  "button": {
+    "start-home": "Start Now",
+    "upload-file": "Upload",
+    "save-and-exit": "Save and exit",
+    "delete": "Delete",
+    "cancel": "Cancel",
+    "edit": "Change",
+    "continue-only": "Continue",
+    "save-and-continue": "Continue",
+    "confirm-submission": "Submit"
+  },
+  "fields": {
+    "welcome-textbox": {
+      "label": "Hof project number (if known)"
+    }
+  },
+  "validation": {}
+}

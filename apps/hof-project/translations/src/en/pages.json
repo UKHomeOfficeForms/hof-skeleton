@@ -1,0 +1,9 @@
+{
+  "welcome": {
+    "header": "Welcome to Hof Project",
+    "paragraph": "This completes your secure access to this service."
+  },
+  "confirm": {
+    "header": "Check your answers"
+  }
+}

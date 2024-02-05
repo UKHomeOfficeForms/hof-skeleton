@@ -1,0 +1,14 @@
+{
+  "buttons": {
+    "start-home": "Start Now"
+  },
+  "journey": {
+    "header": "HOF Service Form Template",
+    "phase": "beta"
+  },
+  "pages": {
+    "start": {
+      "header": "HOF Project Form Template"
+    }
+  }
+}
