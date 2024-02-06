@@ -15,7 +15,17 @@
       "paragraph": "This completes your secure access to this service."
     },
     "confirm": {
-      "header": "Check your answers"
+      "header": "Check your answers",
+      "sections": {
+        "welcome": {
+          "header": "Hof Project Details"
+        }
+      },
+      "fields": {
+        "welcome-textbox": {
+          "label": "Project Number"
+        }
+      }
     }
   },
   "button": {
@@ -34,5 +44,10 @@
       "label": "Hof project number (if known)"
     }
   },
-  "validation": {}
+  "validation": {
+    "welcome-textbox": {
+      "notUrl": "No url allowed",
+      "required": "Please enter require project number"
+    }
+  }
 }

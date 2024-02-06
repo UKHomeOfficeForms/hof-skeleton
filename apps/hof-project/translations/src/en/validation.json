@@ -1,1 +1,6 @@
-{}
+{
+    "welcome-textbox": {
+        "notUrl": "No url allowed",
+        "required": "Please enter require project number"
+    }
+}
