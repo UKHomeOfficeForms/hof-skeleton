@@ -1,4 +1,4 @@
-# hof-skeleton
+# Hof- skeleton
 This is to get you started with HOF. Use this to create a new project.
 
 ## Install prerequisites
@@ -10,8 +10,6 @@ Step 1 : Install Node Version Manager
         wget -qO- https://raw.githubusercontent.com/nvm-sh/nvm/v0.39.1/install.sh | bash
         # or
         brew install nvm
-
-        Any option you choose, please follow the next instruction on your terminal.
 
     Check the version   nvm --version
 

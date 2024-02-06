@@ -53,11 +53,5 @@
     "recursive": "true",
     "timeout": "9000",
     "exit": "true"
-  },
-  "directories": {
-    "test": "test"
-  },
-  "keywords": [
-    "test"
-  ]
+  }
 }
