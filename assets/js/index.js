@@ -7,10 +7,10 @@ const accessibleAutocomplete = require('accessible-autocomplete');
 
 
 $('.typeahead').each(function applyTypeahead() {
-    accessibleAutocomplete.enhanceSelectElement({
-        defaultValue: '',
-        selectElement: this
-    });
+  accessibleAutocomplete.enhanceSelectElement({
+    defaultValue: '',
+    selectElement: this
+  });
 });
 
 govuk.initAll();

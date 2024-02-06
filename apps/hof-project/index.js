@@ -1,5 +1,7 @@
 'use strict';
 
+const SummaryPageBehaviour = require('hof').components.summary;
+
 module.exports = {
   name: 'hof-project',
   params: '/:action?/:id?/:edit?',
@@ -10,7 +12,13 @@ module.exports = {
       backLink: '/start',
       next: '/confirm'
     },
-    "/confirm": {}
-
+    '/confirm': {
+      behaviours: [SummaryPageBehaviour],
+      sections: require('./sections/summary-data-sections'),
+      next: '/confirmation'
+    },
+    '/confirmation': {
+      backLink: false
+    }
   }
 };

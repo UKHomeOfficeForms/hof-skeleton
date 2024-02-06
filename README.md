@@ -1,4 +1,4 @@
-# Hof- skeleton
+# Hof skeleton
 This is to get you started with HOF. Use this to create a new project.
 
 ## Install prerequisites
