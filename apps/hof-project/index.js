@@ -4,12 +4,9 @@ const SummaryPageBehaviour = require('hof').components.summary;
 
 module.exports = {
   name: 'hof-project',
-  params: '/:action?/:id?/:edit?',
-  baseUrl: '/hof',
   steps: {
-    '/welcome': {
-      fields: ['welcome-textbox'],
-      backLink: '/start',
+    '/start': {
+      fields: ['name'],
       next: '/confirm'
     },
     '/confirm': {

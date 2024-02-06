@@ -5,7 +5,6 @@
     "hof/components/clear-session"
   ],
   "routes": [
-    "./apps/common",
     "./apps/hof-project"
   ],
   "session": {

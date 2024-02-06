@@ -1,10 +1,5 @@
 @import "hof/frontend/themes/gov-uk/styles/govuk";
 
-ul {
-  @extend .govuk-list--bullet;
-  margin-left: 10px;
-}
-
 a {
   @extend .govuk-link;
 }

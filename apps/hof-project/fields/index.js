@@ -1,8 +1,8 @@
 'use strict';
 
 module.exports = {
-  'welcome-textbox': {
+  name: {
     mixin: 'input-text',
-    validate: ['notUrl', 'required', { type: 'maxlength', arguments: 50 }]
+    validate: ['required']
   }
 };

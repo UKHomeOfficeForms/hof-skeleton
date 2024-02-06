@@ -2219,7 +2219,7 @@ input[type=number] {
   margin-bottom: 5px;
 }
 
-.govuk-list--bullet, ul {
+.govuk-list--bullet {
   padding-left: 20px;
   list-style-type: disc;
 }
@@ -2229,12 +2229,12 @@ input[type=number] {
   list-style-type: decimal;
 }
 
-.govuk-list--bullet > li, ul > li,
+.govuk-list--bullet > li,
 .govuk-list--number > li {
   margin-bottom: 0;
 }
 @media (min-width: 40.0625em) {
-  .govuk-list--bullet > li, ul > li,
+  .govuk-list--bullet > li,
   .govuk-list--number > li {
     margin-bottom: 5px;
   }
@@ -9358,10 +9358,6 @@ fieldset + .reveal {
 
 .panel-indent .form-group:last-child {
   margin-bottom: 0;
-}
-
-ul {
-  margin-left: 10px;
 }
 
 .autocomplete__wrapper {

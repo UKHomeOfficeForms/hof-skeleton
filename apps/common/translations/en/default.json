@@ -6,9 +6,5 @@
     "header": "HOF Service Form Template",
     "phase": "beta"
   },
-  "pages": {
-    "start": {
-      "header": "HOF Project Form Template"
-    }
-  }
+  "pages": {}
 }

@@ -1,6 +1,15 @@
 {
   "buttons": {
-    "start-home": "Start Now"
+    "start-home": "Start Now",
+    "start": "Start Now",
+    "upload-file": "Upload",
+    "save-and-exit": "Save and exit",
+    "delete": "Delete",
+    "cancel": "Cancel",
+    "edit": "Change",
+    "continue": "Continue",
+    "save-and-continue": "Continue",
+    "confirm-submission": "Submit"
   },
   "journey": {
     "header": "New HOF Service Form",
@@ -8,11 +17,7 @@
   },
   "pages": {
     "start": {
-      "header": "HOF Project Form Template"
-    },
-    "welcome": {
-      "header": "Welcome to Hof Project",
-      "paragraph": "This completes your secure access to this service."
+      "header": "Welcome to Hof Project"
     },
     "confirm": {
       "header": "Check your answers",
@@ -22,31 +27,19 @@
         }
       },
       "fields": {
-        "welcome-textbox": {
+        "name": {
           "label": "Project Number"
         }
       }
     }
   },
-  "button": {
-    "start-home": "Start Now",
-    "upload-file": "Upload",
-    "save-and-exit": "Save and exit",
-    "delete": "Delete",
-    "cancel": "Cancel",
-    "edit": "Change",
-    "continue-only": "Continue",
-    "save-and-continue": "Continue",
-    "confirm-submission": "Submit"
-  },
   "fields": {
-    "welcome-textbox": {
+    "name": {
       "label": "Hof project number (if known)"
     }
   },
   "validation": {
     "welcome-textbox": {
-      "notUrl": "No url allowed",
       "required": "Please enter require project number"
     }
   }

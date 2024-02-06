@@ -1,1 +1,9 @@
 node_modules
+.DS_Store
+public
+.env
+yarn-error.log
+apps/**/translations/**/*
+!apps/**/translations/src/
+!apps/**/translations/src/**/*
+.vscode

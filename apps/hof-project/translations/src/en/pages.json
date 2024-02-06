@@ -1,7 +1,6 @@
 {
-  "welcome": {
-    "header": "Welcome to Hof Project",
-    "paragraph": "This completes your secure access to this service."
+  "start": {
+    "header": "Welcome to Hof Project"
   },
   "confirm": {
     "header": "Check your answers",
@@ -11,7 +10,7 @@
       }
     },
     "fields": {
-      "welcome-textbox": {
+      "name": {
         "label": "Project Number"
       }
     }
