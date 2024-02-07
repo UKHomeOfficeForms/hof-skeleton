@@ -1,5 +1,5 @@
 {
-    "welcome-textbox": {
-        "required": "Please enter require project number"
+    "name": {
+        "required": "Please enter require project name"
     }
 }

@@ -11,7 +11,7 @@
     },
     "fields": {
       "name": {
-        "label": "Project Number"
+        "label": "Project Name"
       }
     }
   }
