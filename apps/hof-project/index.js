@@ -15,7 +15,7 @@ module.exports = {
       next: '/confirmation'
     },
     '/confirmation': {
-      backLink: false
+      clearSession: true
     }
   }
 };
