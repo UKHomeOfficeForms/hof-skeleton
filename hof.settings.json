@@ -1,0 +1,14 @@
+{
+  "appName": "Hof Skeleton Project",
+  "theme": "govUK",
+  "behaviours": [
+    "hof/components/clear-session"
+  ],
+  "routes": [
+    "./apps/hof-project"
+  ],
+  "session": {
+    "name": "hof-project.hof.sid"
+  },
+  "getAccessibility": true
+}

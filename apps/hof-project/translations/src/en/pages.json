@@ -1,0 +1,18 @@
+{
+  "start": {
+    "header": "Welcome to Hof Project"
+  },
+  "confirm": {
+    "header": "Check your answers",
+    "sections": {
+      "name": {
+        "header": "Hof Project Details"
+      }
+    },
+    "fields": {
+      "name": {
+        "label": "Project Name"
+      }
+    }
+  }
+}
