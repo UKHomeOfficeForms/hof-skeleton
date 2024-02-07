@@ -5,7 +5,7 @@
   "confirm": {
     "header": "Check your answers",
     "sections": {
-      "welcome": {
+      "name": {
         "header": "Hof Project Details"
       }
     },
