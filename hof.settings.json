@@ -4,7 +4,7 @@
   "behaviours": [
     "hof/components/clear-session"
   ],
-  "translations": "./apps/coa/translations",
+  "translations": "./apps/boilerplate/translations",
   "routes": [
     "./apps/boilerplate"
   ],

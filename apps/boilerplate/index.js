@@ -1,3 +1,7 @@
+const hof = require('hof');
+const summary = hof.components.summary;
+const config = require('../../config');
+const caseworkerEmail = require('./behaviours/caseworker-email')(config.email);
 
 module.exports = {
     name: 'HOF Skeleton',
@@ -14,7 +18,7 @@ module.exports = {
             next: '/confirm',
         },
         '/confirm': {
-            behaviours: [],
+            behaviours: ['complete', summary, caseworkerEmail],
             next: '/complete'
 
         },
