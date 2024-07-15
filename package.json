@@ -20,7 +20,7 @@
     "url": "git+https://github.com/UKHomeOffice/coa.git"
   },
   "author": "HOF",
-  "license": "ISC",
+  "license": "MIT",
   "bugs": {
     "url": "https://github.com/UKHomeOfficeForms/hof-skeleton/issues"
   },
@@ -37,8 +37,7 @@
     "busboy": "^1.6.0",
     "hof": "^20.5.6",
     "jquery": "^3.6.3",
-    "lodash": "^4.17.21",
-    "moment": "^2.29.4"
+    "lodash": "^4.17.21",=
   },
   "devDependencies": {
     "eslint": "^8.56.0",
