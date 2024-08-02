@@ -11,7 +11,7 @@ environment:
   BRANCH_ENV: sas-hof-boilerplate-branch
   PRODUCTION_URL: www.hof-boilerplate.homeoffice.gov.uk
   IMAGE_URL: quay.io/ukhomeofficedigital
-  IMAGE_REPO: hof-boilerplate
+  IMAGE_REPO: sas/hof-boilerplate
   GIT_REPO: UKHomeOffice/hof-skeleton
   HOF_CONFIG: hof-services-config/Hof_Boilerplate
   NON_PROD_AVAILABILITY: Mon-Sun 08:00-23:00 Europe/London
@@ -25,7 +25,7 @@ trigger:
 
 linting: &linting
   pull: if-not-exists
-  image: node:lts
+  image: node:20.15.0-alpine3.20@sha256:24c14a8a192a6e81d0942929a344f7a4bdf0db8e3b3c77d64a5eb8a4b0c759b7
   environment:
     NOTIFY_STUB: true
   commands:
@@ -33,7 +33,7 @@ linting: &linting
 
 unit_tests: &unit_tests
   pull: if-not-exists
-  image: node:lts
+  image: node:20.15.0-alpine3.20@sha256:24c14a8a192a6e81d0942929a344f7a4bdf0db8e3b3c77d64a5eb8a4b0c759b7
   environment:
     NOTIFY_STUB: true
   commands:
@@ -56,9 +56,27 @@ steps:
         - feature/*
       event: [push, pull_request]
 
+  # Trivy Security Scannner for scanning OS related vulnerabilities in Base image of Dockerfile
+  - name: scan_image_os
+    pull: always
+    image: 340268328991.dkr.ecr.eu-west-2.amazonaws.com/acp/trivy/client:latest
+    resources:
+      limits:
+        cpu: 1000
+        memory: 1024Mi
+    environment:
+      IMAGE_NAME: node:20.15.0-alpine3.20@sha256:24c14a8a192a6e81d0942929a344f7a4bdf0db8e3b3c77d64a5eb8a4b0c759b7
+      SERVICE_URL: https://acp-trivy.acp-trivy.svc.cluster.local:443
+      SEVERITY: MEDIUM,HIGH,CRITICAL  --dependency-tree
+      FAIL_ON_DETECTION: false
+      IGNORE_UNFIXED: false
+      ALLOW_CVE_LIST_FILE: hof-services-config/infrastructure/trivy/.trivyignore.yaml
+    when:
+      event: [push, pull_request]
+
   - name: setup_deploy
     pull: if-not-exists
-    image: node:lts
+    image: node:20.15.0-alpine3.20@sha256:24c14a8a192a6e81d0942929a344f7a4bdf0db8e3b3c77d64a5eb8a4b0c759b7
     environment:
       NOTIFY_STUB: true
     commands:
@@ -98,23 +116,26 @@ steps:
       branch: master
       event: [push, pull_request]
 
-  - name: image_to_quay
-    pull: if-not-exists
-    image: 340268328991.dkr.ecr.eu-west-2.amazonaws.com/acp/dind
-    environment:
-      DOCKER_PASSWORD:
-        from_secret: DOCKER_PASSWORD
-    commands:
-    - docker login -u="ukhomeofficedigital+asc_robot" -p=$${DOCKER_PASSWORD} quay.io
-    - docker tag $${IMAGE_REPO}:$${DRONE_COMMIT_SHA} $${IMAGE_URL}/$${IMAGE_REPO}:$${DRONE_COMMIT_SHA}
-    - docker push $${IMAGE_URL}/$${IMAGE_REPO}:$${DRONE_COMMIT_SHA}
+  - name: image_to_ecr
+    image: plugins/ecr
+    settings:
+      access_key:
+        from_secret: aws_access_key_id
+      secret_key:
+        from_secret: aws_secret_access_key
+      region: eu-west-2
+      repo: sas/hof-boilerplate
+      registry: 340268328991.dkr.ecr.eu-west-2.amazonaws.com
+      tags:
+        - latest_${DRONE_BRANCH}
+        - ${DRONE_COMMIT_SHA}
     when:
       branch: master
       event: [push, pull_request]
 
 
-  # Trivy Security Scannner
-  - name: scan-image
+  # Trivy Security Scannner for scanning nodejs packages in Yarn
+  - name: scan_node_packages
     pull: always
     image: 340268328991.dkr.ecr.eu-west-2.amazonaws.com/acp/trivy/client:latest
     resources:
@@ -123,17 +144,15 @@ steps:
         memory: 1024Mi
     environment:
       IMAGE_NAME: additional-security-checks:${DRONE_COMMIT_SHA}
-      SEVERITY: MEDIUM,HIGH,CRITICAL
+      SERVICE_URL: https://acp-trivy.acp-trivy.svc.cluster.local:443
+      SEVERITY: MEDIUM,HIGH,CRITICAL  --dependency-tree
       FAIL_ON_DETECTION: false
-      IGNORE_UNFIXED: true
-      ALLOW_CVE_LIST_FILE: hof-services-config/Additional_Security_Checks/trivy-cve-exceptions.txt
+      IGNORE_UNFIXED: false
+      ALLOW_CVE_LIST_FILE: hof-services-config/infrastructure/trivy/.trivyignore.yaml
     when:
-      event:
-      - pull_request
-      - push
-      - tag
+      event: [push, pull_request]
 
-  # Deploy to pull request UAT environment
+  # Deploy with pull request to Branch environment
   - name: deploy_to_branch
     pull: if-not-exists
     image: quay.io/ukhomeofficedigital/kd:v1.14.0
@@ -150,7 +169,7 @@ steps:
 
   - name: setup_branch
     pull: if-not-exists
-    image: node:lts
+    image: node:20.15.0-alpine3.20@sha256:24c14a8a192a6e81d0942929a344f7a4bdf0db8e3b3c77d64a5eb8a4b0c759b7
     environment:
       NOTIFY_STUB: true
     commands:
@@ -330,53 +349,79 @@ steps:
       cron: security_scans
       event: cron
 
-  - name: cron_trivy_scan
+  - name: cron_trivy_scan_node_packages
     image: 340268328991.dkr.ecr.eu-west-2.amazonaws.com/acp/trivy/client:latest
     pull: always
     environment:
-      IMAGE_NAME: additional-security-checks:${DRONE_COMMIT_SHA}
-      SEVERITY: MEDIUM,HIGH,CRITICAL
-      FAIL_ON_DETECTION: false
-      IGNORE_UNFIXED: true
-      ALLOW_CVE_LIST_FILE: hof-services-config/Additional_Security_Checks/trivy-cve-exceptions.txt
+        IMAGE_NAME: additional-security-checks:${DRONE_COMMIT_SHA}
+        SERVICE_URL: https://acp-trivy.acp-trivy.svc.cluster.local:443
+        SEVERITY: UNKNOWN,LOW,MEDIUM,HIGH,CRITICAL --dependency-tree
+        FAIL_ON_DETECTION: true
+        IGNORE_UNFIXED: false
+        ALLOW_CVE_LIST_FILE: hof-services-config/infrastructure/trivy/.trivyignore.yaml
     when:
       cron: security_scans
       event: cron
 
-  # Slack notification upon a CRON job fail
-  - name: cron_notify_slack_tear_down_pr_envs
-    pull: if-not-exists
-    image: plugins/slack
+  - name: cron_trivy_scan_image_os
+    image: 340268328991.dkr.ecr.eu-west-2.amazonaws.com/acp/trivy/client:latest
+    pull: always
+    environment:
+        IMAGE_NAME: node:20.15.0-alpine3.20@sha256:24c14a8a192a6e81d0942929a344f7a4bdf0db8e3b3c77d64a5eb8a4b0c759b7
+        SERVICE_URL: https://acp-trivy.acp-trivy.svc.cluster.local:443
+        SEVERITY: UNKNOWN,LOW,MEDIUM,HIGH,CRITICAL --dependency-tree
+        FAIL_ON_DETECTION: true
+        IGNORE_UNFIXED: false
+        ALLOW_CVE_LIST_FILE: hof-services-config/infrastructure/trivy/.trivyignore.yaml
+    when:
+      cron: security_scans
+      event: cron
+
+    image: plugins/slack:1.4.1
     settings:
-      channel: sas-build
+      channel: sas-hof-build-notify
       failure: ignore
-      icon_url: https://readme.drone.io/0.5/logo_dark.svg
-      icon.url: https://readme.drone.io/0.5/logo_dark.svg
-      template: "CRON Job {{build.deployTo}} of ASC has {{build.status}} - <{{build.link}}|#{{build.number}}> {{#success build.status}}\n  :thumbsup: :thumbsup: :thumbsup:\n{{else}}\n  :x: :x: :x:\n{{/success}} Author: {{build.author}}\n\nDuration: {{since job.started}}\n\nJob: <{{build.link}}|#{{build.number}}>\n\nCommit: {{build.commit}}\n"
-      username: Drone
+      template: >
+          :x: Build for cron tear down pr envs failed. 
+
+          Cron job failed to tear the deployments in Branch Env. Please use the information below to fix pipeline.
+
+          *Repository:*  <https://github.com/{{ repo.owner }}/{{ repo.name }}/|{{ repo.owner }}/{{ repo.name }}>
+          
+          *Build Link:* <{{build.link}}|View Build Details> 
       webhook:
-        from_secret: slack_webhook
+        from_secret: slack_sas_hof_build_notify_webhook
     when:
       cron: tear_down_pr_envs
       event: cron
-      status: failure
+      status: [ failure ]
 
   - name: cron_notify_slack_security_scans
     pull: if-not-exists
-    image: plugins/slack
+    image: plugins/slack:1.4.1
     settings:
-      channel: sas-build
+      channel: sas-hof-security
       failure: ignore
-      icon_url: https://readme.drone.io/0.5/logo_dark.svg
-      icon.url: https://readme.drone.io/0.5/logo_dark.svg
-      template: "CRON Job {{build.deployTo}} of ASC has {{build.status}} - <{{build.link}}|#{{build.number}}> {{#success build.status}}\n  :thumbsup: :thumbsup: :thumbsup:\n{{else}}\n  :x: :x: :x:\n{{/success}} Author: {{build.author}}\n\nDuration: {{since job.started}}\n\nJob: <{{build.link}}|#{{build.number}}>\n\nCommit: {{build.commit}}\n"
-      username: Drone
+      template: >
+          :x: Build for cron security scans failed. 
+
+          Trivy has detected vulnerabilities. As a result, the build has failed. Please prioritize reviewing and addressing this issue.
+
+          *Repository:*  <https://github.com/{{ repo.owner }}/{{ repo.name }}/|{{ repo.owner }}/{{ repo.name }}> 
+
+          *Branch:* <https://github.com/{{ repo.owner }}/{{ repo.name }}/commits/{{ build.branch }}|{{ build.branch }}>
+
+          *Build Link:* <{{build.link}}|View Build Details>
+
+          *Commit:* <https://github.com/{{ repo.owner }}/{{ repo.name }}/commit/{{ build.commit }}|{{ truncate build.commit 8 }}>
+
+          *Author:* <https://github.com/{{ build.author }}|{{ build.author }}>
       webhook:
-        from_secret: slack_webhook
+        from_secret: slack_sas_hof_security_webhook
     when:
       cron: security_scans
       event: cron
-      status: failure
+      status: [ failure ]
 
 services:
   - name: docker
