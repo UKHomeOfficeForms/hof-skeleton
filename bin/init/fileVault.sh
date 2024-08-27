@@ -9,12 +9,12 @@ if [[ $FILE_UPLOAD == true ]]; then
   fileVaultFolder="fileVault"
 
   if [ ! -d "$fileVaultFolder" ]; then
+    echo 'Creating file vault directory ...'
     mkdir "$fileVaultFolder"
   else
-    if [ -z "$( ls -A '/path/to/dir' )" ]; then
-       echo "Empty"
-    else
-       echo "Not Empty"
+    if [ -n "$( ls -A "$fileVaultFolder" )" ]; then
+       rm -rf $fileVaultFolder
+       mkdir "$fileVaultFolder"
     fi
   fi
 
@@ -22,6 +22,8 @@ if [[ $FILE_UPLOAD == true ]]; then
      git clone "$fileVaultRepo" "$fileVaultFolder"
   fi
 
+  echo "Checking for $fileVaultFolder/$file file ..."
+  envVariableMistakes=false
   envVariableValueChecks=(
     "FILE_VAULT_URL:http://localhost:3000"
     "PORT:3001"
@@ -31,7 +33,6 @@ if [[ $FILE_UPLOAD == true ]]; then
     "AWS_SIGNATURE_VERSION:v4"
     "AWS_EXPIRY_TIME:604800"
   )
-
   envVariableValueExistsChecks=(
     'AWS_ACCESS_KEY_ID'
     'AWS_SECRET_ACCESS_KEY'
@@ -43,15 +44,10 @@ if [[ $FILE_UPLOAD == true ]]; then
     'PROXY_DISCOVERY_URL'
   )
 
-  echo "Checking for $file file ..."
-  envVariableMistakes=false
-
-  if [ -f $file ]; then
-    echo "$file file found"
+  if [ -f "$fileVaultFolder/$file" ]; then
+    echo "/$fileVaultFolder/$file file found"
     echo 'checking values of essential variables ...'
-    source $file
-
-
+    source "$fileVaultFolder/$file"
     for variable in "${envVariableValueChecks[@]}";
     do
       KEY=${variable%%:*}
@@ -70,18 +66,18 @@ if [[ $FILE_UPLOAD == true ]]; then
     done
 
   else
-    echo "File $file does not exist. Creating one ..."
+    echo "/$fileVaultFolder/$file does not exist. Creating one ..."
     for variable in "${envVariableValueChecks[@]}";
       do
         KEY=${variable%%:*}
         VALUE=${variable#*:}
-        echo "$KEY=$VALUE" >> $file
+        echo "$KEY=$VALUE" >> "$fileVaultFolder/$file"
       done
     for variableName in "${envVariableValueExistsChecks[@]}";
       do
         echo "Please enter the value for $variableName:"
         read -r value
-        echo "$variableName=$value" >> $file
+        echo "$variableName=$value" >> "$fileVaultFolder/$file"
       done
   fi
 
@@ -89,7 +85,7 @@ if [[ $FILE_UPLOAD == true ]]; then
     echo 'Please fix the values of the above env variables and run the script again.'
     exit
   else
-    echo "$file check completed ..."
+    echo "$fileVaultFolder/$file check completed ..."
   fi
 
 else

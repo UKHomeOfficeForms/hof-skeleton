@@ -2,7 +2,7 @@
 
 # creating the env file
 
-bash bin/init/devEnv.sh
+# bash bin/init/devEnv.sh
 
 # setup file vault
 
@@ -18,7 +18,7 @@ bash bin/init/fileVault.sh
 
 ## if hof-rds-api is needed build file vault containers, and link them with the main app
 
-docker compose up -d
+# docker compose up -d
 
 # pipeline?? kub tokens s3 bucket access??
 

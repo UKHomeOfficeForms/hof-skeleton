@@ -10,7 +10,6 @@ envVariableValueChecks=(
   "EMAIL_PORT:25"
   "REDIS_HOST:redis"
   "REDIS_PORT:6379"
-  "FILE_UPLOAD:false"
 )
 envVariableValueExistsChecks=(
   'NOTIFY_KEY'
@@ -58,6 +57,18 @@ else
       read -r value
       echo "$variableName=$value" >> $file
     done
+fi
+
+if [ -z ${FILE_UPLOAD+x} ]; then
+  echo "Does your project need file upload functionality? [true/false]"
+  read -r value
+  echo >> $file
+  echo "FILE_UPLOAD=$value" >> $file
+fi
+
+if [[ ! ($FILE_UPLOAD == true || $FILE_UPLOAD == false) ]]; then
+    echo "Please fix the values of FILE_UPLOAD in your $file, it needs to be either true or false."
+    exit
 fi
 
 if [[ $envVariableMistakes != false ]]; then
