@@ -2,6 +2,9 @@ const hof = require('hof');
 const summary = hof.components.summary;
 const config = require('../../config');
 const caseworkerEmail = require('./behaviours/caseworker-email')(config.email);
+const SaveImage = require('./behaviours/save-image');
+const RemoveImage = require('./behaviours/remove-image');
+const LimitDocument = require('./behaviours/limit-documents');
 
 module.exports = {
     name: 'HOF Skeleton',
@@ -15,6 +18,11 @@ module.exports = {
         },
         '/name': {
             fields: ['name'],
+            next: '/upload',
+        },
+        '/upload': {
+            behaviours: [SaveImage('image'), RemoveImage, LimitDocument],
+            fields: ['image'],
             next: '/confirm',
         },
         '/confirm': {

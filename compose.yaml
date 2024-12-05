@@ -40,3 +40,10 @@ services:
 
   chrome:
     image: yukinying/chrome-headless
+
+  file-vault:
+    build: ./fileVault
+    env_file:
+      - ./fileVault/.env
+    ports:
+      - "3000:3000"
