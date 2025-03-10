@@ -10,11 +10,11 @@ bash bin/init/fileVault.sh
 
 # setting up the hof-rds-api
 
-bash bin/init/hofRds.sh
+# bash bin/init/hofRds.sh
 
 # setting up the htmlPdfCoverter
 
-bash bin/init/htmlPdfConverter.sh
+# bash bin/init/htmlPdfConverter.sh
 
 # docker compose execution to bring up the environments
 

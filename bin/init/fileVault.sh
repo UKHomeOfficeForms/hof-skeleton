@@ -87,7 +87,9 @@ if [[ $FILE_UPLOAD == true ]]; then
   else
     echo "$fileVaultFolder/$file check completed ..."
   fi
+  # npm install
 
+  # start file-vault container
 else
   echo 'File vault not needed ...'
 fi

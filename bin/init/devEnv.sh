@@ -64,6 +64,21 @@ if [ -z ${FILE_UPLOAD+x} ]; then
   read -r value
   echo >> $file
   echo "FILE_UPLOAD=$value" >> $file
+  echo "FILE_VAULT_URL=http://localhost:3000/file" >> $file
+fi
+
+if [ -z ${FILE_UPLOAD+x} ]; then
+  echo "Does your project need save & return, or RDS functionality? [true/false]"
+  read -r value
+  echo >> $file
+  echo "RDS=$value" >> $file
+fi
+
+if [ -z ${FILE_UPLOAD+x} ]; then
+  echo "Does your project need HTML to PDF convert functionality? [true/false]"
+  read -r value
+  echo >> $file
+  echo "HTML_PDF=$value" >> $file
 fi
 
 if [[ ! ($FILE_UPLOAD == true || $FILE_UPLOAD == false) ]]; then
