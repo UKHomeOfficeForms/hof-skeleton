@@ -1,0 +1,28 @@
+{{<partials-page}}
+{{$encoding}}enctype="multipart/form-data" name="file-upload-form"{{/encoding}}
+{{$page-content}}
+    <h2 class="govuk-heading-m">Upload a file</h2>
+    {{#renderField}}image{{/renderField}}
+    <button class="govuk-button govuk-button--secondary" name="upload-file" value="upload-file">
+        {{#t}}buttons.upload-file{{/t}}
+    </button>
+    {{^values.images}}
+    <h2 class="govuk-heading-m">No files uploaded</h2>
+    {{/values.images}}
+
+    {{#values.images.length}}
+    <br>
+    <h2 class="govuk-heading-m">Files uploaded</h2>
+    <table class="table-address-loop">
+        <tbody>
+        {{#values.images}}
+        <tr class="images-summary">
+            <td>{{name}}</td>
+            <td><a href="?delete={{id}}" class="govuk-link">{{#t}}buttons.remove{{/t}}</a></td>
+        </tr>
+        {{/values.images}}
+        </tbody>
+    </table>
+    {{/values.images.length}}
+{{/page-content}}
+{{/partials-page}}
