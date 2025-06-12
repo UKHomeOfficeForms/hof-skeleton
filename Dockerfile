@@ -1,4 +1,5 @@
-FROM node:lts-alpine@sha256:19eaf41f3b8c2ac2f609ac8103f9246a6a6d46716cdbe49103fdb116e55ff0cc
+# Docker image link: https://hub.docker.com/layers/library/node/20-alpine3.22/images/sha256-dd75a9e8995e7f9d83f64af16d07c1edbc97139b08246ed8cb7f5ea1d28c726d (uses node v20.19.2)
+FROM node:20-alpine3.22@sha256:d3507a213936fe4ef54760a186e113db5188472d9efdf491686bd94580a1c1e8
 
 USER root
 

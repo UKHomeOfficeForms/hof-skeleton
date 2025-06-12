@@ -5,7 +5,6 @@ services:
       - .env
     links:
       - redis
-      - maildev
     ports:
       - "8080:8080"
     volumes:
@@ -16,7 +15,7 @@ services:
     image: redis
 
   nginx-proxy:
-    image: quay.io/ukhomeofficedigital/nginx-proxy-govuk:v3.0.0.0
+    image: quay.io/ukhomeofficedigital/nginx-proxy-govuk
     environment:
       - PROXY_SERVICE_HOST=app
       - PROXY_SERVICE_PORT=8080
@@ -31,19 +30,3 @@ services:
       - app
     volumes_from:
       - app
-
-  maildev:
-    image: djfarrelly/maildev
-    ports:
-      - "8000:80"
-      - "25"
-
-  chrome:
-    image: yukinying/chrome-headless
-
-  file-vault:
-    build: ./fileVault
-    env_file:
-      - ./fileVault/.env
-    ports:
-      - "3000:3000"

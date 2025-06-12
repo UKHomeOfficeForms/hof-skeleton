@@ -3,4 +3,4 @@ apps/boilerplate/translations/en
 public
 .npm
 .yarn
-fileVault
+coverage
