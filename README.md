@@ -8,9 +8,9 @@ The purpose of this project is to provide a very simple project which contains t
 
 2. Update the git remote to point to the repository you want to push the code to: `git remote set-url origin <NEW_GIT_URL_HERE>`.
 
-3. Install the dependencies `npm i`
+3. Install the dependencies `yarn install`
 
-4. Run the service in dev mode `npm start:dev`
+4. Run the service in dev mode `yarn start:dev`
 
 ## Dependencies
 

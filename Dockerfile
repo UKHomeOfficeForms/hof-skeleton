@@ -3,7 +3,7 @@ FROM node:20-alpine3.22@sha256:d3507a213936fe4ef54760a186e113db5188472d9efdf4916
 
 USER root
 
-# Update packages as a result of Anchore security vulnerability checks
+# Update packages as a result of Trivvy security vulnerability checks
 RUN apk update && apk upgrade --no-cache
 
 # Setup nodejs group & nodejs user

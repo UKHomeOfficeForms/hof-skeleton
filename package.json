@@ -26,10 +26,7 @@
   },
   "homepage": "https://github.com/UKHomeOfficeForms/hof-skeleton/",
   "dependencies": {
-    "accessible-autocomplete": "^2.0.4",
-    "hof": "^22.7.2",
-    "jquery": "^3.6.3",
-    "lodash": "^4.17.21"
+    "hof": "^22.7.2"
   },
   "devDependencies": {
     "eslint": "^8.56.0",

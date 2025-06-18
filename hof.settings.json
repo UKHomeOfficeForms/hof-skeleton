@@ -11,6 +11,5 @@
   "session": {
     "name": "boilerplate.hof.sid"
   },
-  "getAccessibility": true,
-  "emailerFallback": true
+  "getAccessibility": true
 }
