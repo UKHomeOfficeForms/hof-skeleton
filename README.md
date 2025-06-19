@@ -10,7 +10,15 @@ The purpose of this project is to provide a very simple project which contains t
 
 3. Install the dependencies `yarn install`
 
-4. Run the service in dev mode `yarn start:dev`
+4. Make or copy, or change the `.env.example` file to `.env` (this contains some sample env configuration for the application to work) 
+
+5. Run the service in dev mode `yarn start:dev`
+
+### Containerised App 
+
+If you want to run the application in a containerised setup, there is a `docker compose` file ready to use. This will build the container image based on the dockerfile and run it alongside an instance of redis on the same shared network:
+
+`docker compose up`
 
 ## Dependencies
 
