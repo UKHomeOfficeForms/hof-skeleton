@@ -1,3 +1,6 @@
+const hof = require('hof');
+const summary = hof.components.summary;
+
 module.exports = {
   name: 'HOF Skeleton',
   fields: 'apps/boilerplate/fields',
@@ -5,19 +8,14 @@ module.exports = {
   translations: 'apps/boilerplate/translations',
   baseUrl: '/',
   steps: {
-    '/start': {
-      next: '/name'
-    },
     '/name': {
       fields: ['name'],
       next: '/confirm'
     },
     '/confirm': {
-      behaviours: ['complete'],
+      behaviours: ['complete', summary],
       next: '/complete'
     },
-    '/complete': {
-      backLink: false
-    }
+    '/complete': {}
   }
 };
