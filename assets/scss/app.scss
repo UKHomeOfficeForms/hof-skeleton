@@ -1,0 +1,51 @@
+@import "hof/frontend/themes/gov-uk/styles/govuk";
+
+.govuk-label-wrapper {
+  margin-bottom: 15px;
+}
+
+span.form-hint {
+  padding-top: 0;
+  margin-bottom: 0;
+}
+
+.phase-banner {
+  @include phase-banner(beta);
+}
+
+.twitter-typeahead {
+  width: 100%;
+}
+
+//Cookie banner styling
+
+#cookie-banner {
+  #cookie-banner-actions {
+    font-size: 65% !important;
+    width: 66.667% !important;
+  }
+}
+
+.wrap-table-cell, .confirm-row {
+  white-space: pre-wrap;
+  word-wrap: break-word;
+}
+
+.list-bullet {
+  list-style-type: disc;
+  color: #6f777b;
+  margin-left: 2rem;
+  padding-bottom: 1rem;
+}
+
+.govuk-button {
+  margin-right: 0.5rem;
+}
+
+.govuk-hint {
+  margin-top: 1rem;
+}
+
+.govuk-caption-l {
+  margin-bottom: 0.5rem;
+}
