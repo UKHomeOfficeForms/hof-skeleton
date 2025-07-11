@@ -2,6 +2,14 @@
 
 The purpose of this project is to provide a very simple project which contains the latest version of the HOF framework, and necessary dependencies to get started with building a HOF form. 
 
+## Pre-Requirements
+
+Using this project, and therefore the HOF framework, requires [Redis](https://redis.io/). Instructions on [how to install redis on OSX](https://medium.com/@petehouston/install-and-config-redis-on-mac-os-x-via-homebrew-eb8df9a4f298#.jcwwhv7oz).
+
+Further details of HOF requirements can be found [here](https://ukhomeofficeforms.github.io/hof-guide/HOF_Framework/1-getting-started).
+
+https://ukhomeofficeforms.github.io/hof-guide/HOF_Framework/1-getting-started
+
 ## Getting Started
 
 1. Clone this repo `git clone git@github.com:UKHomeOfficeForms/hof-skeleton.git` into a destination folder of your chosing. 
